@@ -1,0 +1,43 @@
+## SignUp
+POST http://localhost:8080/user HTTP/1.1
+content-type: application/json
+
+{
+  "Name": "John Doe",
+  "email": "copagac747@bitofee.com",
+  "password": "Wvj0104**99"
+}
+
+###
+
+## ConfirmaAcconut
+POST http://localhost:8080/user/confirmation HTTP/1.1
+content-type: application/json
+
+{
+  "email": "copagac747@bitofee.com",
+  "code": "529932"
+}
+
+###
+
+## SignIn
+POST http://localhost:8080/user/login HTTP/1.1
+content-type: application/json
+
+{
+  "email": "copagac747@bitofee.com",
+  "password": "Wvj0104**99"
+}
+
+###
+
+## GetUserByToken
+GET http://localhost:8080/user HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJraWQiOiJaMnNHXC8yMWhLNU0xNitlRVJRY0lMUVRjamFhOXk2WjVaK2VLclhXNUtLbz0iLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiI2M2MyNWYxZC00ZDExLTRkMTItOGRjNS01MjliNzc3MmZjNjQiLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtZWFzdC0xLmFtYXpvbmF3cy5jb21cL3VzLWVhc3QtMV9FdGxuWnlLd1oiLCJjbGllbnRfaWQiOiI0bzV1YnFhY3UyN3RjaG9rNnU2ZXFxMHZxciIsIm9yaWdpbl9qdGkiOiI0MDVmYTI5YS04ODI1LTRjMDUtYTYxMC1mNzc4M2Y0NGVlZDYiLCJldmVudF9pZCI6Ijg4ZGY3ZWVlLTMzY2ItNGFlZC1iZmExLTZiOGZjNWU4Mzc5OCIsInRva2VuX3VzZSI6ImFjY2VzcyIsInNjb3BlIjoiYXdzLmNvZ25pdG8uc2lnbmluLnVzZXIuYWRtaW4iLCJhdXRoX3RpbWUiOjE3MDcwMDI2MzUsImV4cCI6MTcwNzAwNjIzNSwiaWF0IjoxNzA3MDAyNjM1LCJqdGkiOiJmYzE3MmYwNy00ZTk3LTQ3ODQtOTc3YS1lNDJmZjMzZDVkYWQiLCJ1c2VybmFtZSI6IjYzYzI1ZjFkLTRkMTEtNGQxMi04ZGM1LTUyOWI3NzcyZmM2NCJ9.yPOT8ItRyicD15E1FRjOIZVkmns3OUkziRUeHeIRuIBjf-krElVq_8OBaSPbIAAzgGOn-o66g53pKQtu0zAx5_Uo35YRdpOaPp3X6NsZDD8-UHxm1EZGYQdEgqGMXQMbRe6N0IKqlF2eVwEaxjfzbWpPxY38aLXCjO3tBXrU2vEsR2yaW5r9xg3mkxsw6s_IwrVV9eBWKqzb8BLp0yIMZuO-1Epyj9RktZDpZMcj5lj6EHE4jyoHXbPv412NLNhq1vQ-HedrMUzvdLJRzMJl-PSRGbBFCUXg1h5S6LUHKSp2V9Ek5o-kVwFHyOlNfFAoNhsc1-Cg1cc8C5vGHQAxGA
+
+{
+  "email": "wacok89902@alibrs.com",
+  "password": "Wvj0104**99"
+}
