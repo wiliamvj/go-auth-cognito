@@ -5,6 +5,7 @@ import (
 	"github.com/aws/aws-sdk-go/aws/session"
 	cognito "github.com/aws/aws-sdk-go/service/cognitoidentityprovider"
 	"github.com/google/uuid"
+	"os"
 )
 
 type User struct {
@@ -27,7 +28,8 @@ type CognitoInterface interface {
 	SignUp(user *User) error
 	ConfirmAccount(user *UserConfirmation) error
 	SignIn(user *UserLogin) (string, error)
-	GetUserByToken(email string) (*cognito.GetUserOutput, error)
+	GetUserByToken(token string) (*cognito.GetUserOutput, error)
+	UpdatePassword(user *UserLogin) error
 }
 
 type cognitoClient struct {
@@ -114,5 +116,18 @@ func (c *cognitoClient) GetUserByToken(token string) (*cognito.GetUserOutput, er
 		return nil, err
 	}
 	return result, nil
+}
 
+func (c *cognitoClient) UpdatePassword(user *UserLogin) error {
+	input := &cognito.AdminSetUserPasswordInput{
+		UserPoolId: aws.String(os.Getenv("COGNITO_USER_POOL_ID")),
+		Username:   aws.String(user.Email),
+		Password:   aws.String(user.Password),
+		Permanent:  aws.Bool(true),
+	}
+	_, err := c.cognitoClient.AdminSetUserPassword(input)
+	if err != nil {
+		return err
+	}
+	return nil
 }

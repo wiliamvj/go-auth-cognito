@@ -63,6 +63,18 @@ func main() {
 		}
 		context.JSON(http.StatusOK, gin.H{"user": user})
 	})
+	r.PATCH("user/password", func(context *gin.Context) {
+		err := UpdatePassword(context, cognitoClient)
+		if err != nil {
+			if err.Error() == "token not found" {
+				context.JSON(http.StatusUnauthorized, gin.H{"error": "token not found"})
+				return
+			}
+			context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+		context.JSON(http.StatusOK, gin.H{"message": "password updated"})
+	})
 	fmt.Println("Server is running on port 8080")
 	err = r.Run(":8080")
 	if err != nil {
@@ -134,4 +146,20 @@ func GetUserByToken(c *gin.Context, cognito congnitoClient.CognitoInterface) (*U
 		}
 	}
 	return user, nil
+}
+
+func UpdatePassword(c *gin.Context, cognito congnitoClient.CognitoInterface) error {
+	token := strings.TrimPrefix(c.GetHeader("Authorization"), "Bearer ")
+	if token == "" {
+		return errors.New("token not found")
+	}
+	var user congnitoClient.UserLogin
+	if err := c.ShouldBindJSON(&user); err != nil {
+		return errors.New("invalid json")
+	}
+	err := cognito.UpdatePassword(&user)
+	if err != nil {
+		return errors.New("could not update password")
+	}
+	return nil
 }
